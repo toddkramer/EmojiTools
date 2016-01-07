@@ -111,6 +111,7 @@ public struct EmojiTools {
             }.sort()
         let unicodeCharacters = filteredKeys.map({ emojiShortCodes[$0]! })
         var suggestions = [EmojiCodeSuggestion]()
+        if filteredKeys.count == 0 { return suggestions }
         for index in 0...(filteredKeys.count - 1) {
             let suggestion = EmojiCodeSuggestion(code: filteredKeys[index], character: unicodeCharacters[index])
             suggestions.append(suggestion)
