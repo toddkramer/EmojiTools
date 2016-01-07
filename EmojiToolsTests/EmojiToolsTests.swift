@@ -32,7 +32,7 @@ class EmojiToolsTests: XCTestCase {
     let emojiString = "This 😀😎👩‍👩‍👧‍👧 string 🌲🐯🌛 has 🍉☕️🍻 a 🎆🏀🎼 lot 🚌🗽✈️ of 📞🔦✉️ emoji. 8️⃣🔡🕒"
     let emojiOnlyWhitespaceString = "😀😎👩‍👩‍👧‍👧 🌲🐯🌛 🍉☕️🍻 🎆🏀🎼   🚌🗽✈️     📞🔦✉️ 8️⃣🔡🕒"
     let emojiOnlyString = "😀😎👩‍👩‍👧‍👧🌲🐯🌛🍉☕️🍻🎆🏀🎼🚌🗽✈️📞🔦✉️8️⃣🔡🕒"
-    let emojiCodeString = "The :monkey: is looking for a :banana: to sell for some :moneybag: at the :convenience_store:."
+    let emojiCodeString = "The :monkey: is trying to buy a :banana: with some :moneybag: at the :convenience_store:."
 
     func testContainsEmoji() {
         XCTAssertFalse(nonEmojiString.containsEmoji())
@@ -51,7 +51,7 @@ class EmojiToolsTests: XCTestCase {
     }
 
     func testEmojiString() {
-        let processedEmojiString = "The 🐒 is looking for a 🍌 to sell for some 💰 at the 🏪."
+        let processedEmojiString = "The 🐒 is trying to buy a 🍌 with some 💰 at the 🏪."
         XCTAssertEqual(emojiCodeString.emojiString(), processedEmojiString)
     }
 

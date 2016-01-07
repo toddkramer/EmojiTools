@@ -12,6 +12,16 @@ Tools for detecting emoji in strings and using emoji shortcut codes.
 ##Requirements
 Since EmojiTools is a dynamic framework, **iOS 8 or above is required**
 
+##CocoaPods
+```
+platform :ios, '8.0'
+use_frameworks!
+
+target 'SingleViewApp' do
+  pod 'EmojiTools'
+end
+```
+
 ##Manual Installation
 To install EmojiTools manually:
   1. Download, clone, or submodule EmojiTools.
@@ -40,8 +50,8 @@ Emoji Shortcut Codes
 import EmojiTools
 
 func someFunction() {
-    let emojiShortcutCodeString = "The :monkey: is looking for a :banana: to sell for some :moneybag: at the :convenience_store:."
-    let processedEmojiString = emojiShortcutCodeString.emojiString() // "The 🐒 is looking for a 🍌 to sell for some 💰 at the 🏪."
+    let emojiShortcutCodeString = "The :monkey: is trying to buy a :banana: with some :moneybag: at the :convenience_store:."
+    let processedEmojiString = emojiShortcutCodeString.emojiString() // "The 🐒 is trying to buy a 🍌 with some 💰 at the 🏪."
 }
 ```
 
