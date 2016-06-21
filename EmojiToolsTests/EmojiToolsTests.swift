@@ -30,7 +30,7 @@ class EmojiToolsTests: XCTestCase {
 
     let nonEmojiString = "This string does not contain emoji."
     let emojiString = "This 😀😎👩‍👩‍👧‍👧 string 🌲🐯🌛 has 🍉☕️🍻 a 🎆🏀🎼 lot 🚌🗽✈️ of 📞🔦✉️ emoji. 8️⃣🔡🕒"
-    let emojiOnlyWhitespaceString = "😀😎👩‍👩‍👧‍👧 🌲🐯🌛 🍉☕️🍻 🎆🏀🎼   🚌🗽✈️     📞🔦✉️ 8️⃣🔡🕒"
+    let emojiOnlyWhitespaceString = "😀😎👩‍👩‍👧‍👧 🌲🐯🌛 🍉☕️🍻 🎆🏀🎼\n🚌🗽✈️      📞🔦✉️ 8️⃣🔡🕒"
     let emojiOnlyString = "😀😎👩‍👩‍👧‍👧🌲🐯🌛🍉☕️🍻🎆🏀🎼🚌🗽✈️📞🔦✉️8️⃣🔡🕒"
     let emojiCodeString = "The :monkey: is trying to buy a :banana: with some :moneybag: at the :convenience_store:."
 
