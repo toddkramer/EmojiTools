@@ -74,7 +74,7 @@ extension String {
     public static func containsEmojiOnly(string: String, allowWhitespace: Bool = true) -> Bool {
         var inputString = string
         if allowWhitespace {
-            inputString = string.stringByReplacingOccurrencesOfString(" ", withString: "")
+            inputString = string.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).joinWithSeparator("")
         }
         for scalar in inputString.unicodeScalars {
             if !scalar.isEmoji() {
