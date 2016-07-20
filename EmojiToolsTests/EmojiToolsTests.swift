@@ -29,25 +29,37 @@ import XCTest
 class EmojiToolsTests: XCTestCase {
 
     let nonEmojiString = "This string does not contain emoji."
+    let nonEmojiNumerals = "1234567890"
     let emojiString = "This 😀😎👩‍👩‍👧‍👧 string 🌲🐯🌛 has 🍉☕️🍻 a 🎆🏀🎼 lot 🚌🗽✈️ of 📞🔦✉️ emoji. 8️⃣🔡🕒"
+    let emojiModifiersString = "This 👶🏻 string 👦🏽👩🏾 has emoji with skin tone variations."
     let emojiOnlyWhitespaceString = "😀😎👩‍👩‍👧‍👧 🌲🐯🌛 🍉☕️🍻 🎆🏀🎼\n🚌🗽✈️      📞🔦✉️ 8️⃣🔡🕒"
     let emojiOnlyString = "😀😎👩‍👩‍👧‍👧🌲🐯🌛🍉☕️🍻🎆🏀🎼🚌🗽✈️📞🔦✉️8️⃣🔡🕒"
+    let emojiOnlyModifiersString = "👶🏻👦🏽👩🏾"
+    let emojiOnlyComposedString = "🇻🇪🇻🇳🇼🇫🇪🇭🇾🇪🇿🇲🇿🇼"
     let emojiCodeString = "The :monkey: is trying to buy a :banana: with some :moneybag: at the :convenience_store:."
 
     func testContainsEmoji() {
         XCTAssertFalse(nonEmojiString.containsEmoji())
+        XCTAssertFalse(nonEmojiNumerals.containsEmoji())
         XCTAssertTrue(emojiString.containsEmoji())
+        XCTAssertTrue(emojiModifiersString.containsEmoji())
         XCTAssertTrue(emojiOnlyWhitespaceString.containsEmoji())
         XCTAssertTrue(emojiOnlyString.containsEmoji())
+        XCTAssertTrue(emojiOnlyComposedString.containsEmoji())
     }
 
     func testContainsEmojiOnly() {
         XCTAssertFalse(nonEmojiString.containsEmojiOnly())
+        XCTAssertFalse(nonEmojiNumerals.containsEmojiOnly())
         XCTAssertFalse(emojiString.containsEmojiOnly())
+        XCTAssertFalse(emojiModifiersString.containsEmojiOnly())
         XCTAssertFalse(emojiOnlyWhitespaceString.containsEmojiOnly(false))
         XCTAssertTrue(emojiOnlyWhitespaceString.containsEmojiOnly())
         XCTAssertTrue(emojiOnlyString.containsEmojiOnly())
+        XCTAssertTrue(emojiOnlyModifiersString.containsEmojiOnly())
         XCTAssertTrue(emojiOnlyString.containsEmojiOnly(false))
+        XCTAssertTrue(emojiOnlyComposedString.containsEmojiOnly())
+        XCTAssertTrue(emojiOnlyComposedString.containsEmojiOnly(false))
     }
 
     func testEmojiString() {
