@@ -26,11 +26,19 @@
 import Foundation
 
 extension String {
-    
+
+    func composedCharacterSequences() -> [String] {
+        var characters = [String]()
+        enumerateSubstringsInRange(startIndex..<endIndex, options: .ByComposedCharacterSequences) { char, start, end, stop in
+            characters.append(char!)
+        }
+        return characters
+    }
+
     public func emojiString() -> String {
         return String.emojiStringFromString(self)
     }
-    
+
     public static func emojiStringFromString(inputString: String) -> String {
         var token: dispatch_once_t = 0
         var regex: NSRegularExpression? = nil
@@ -59,12 +67,7 @@ extension String {
     }
 
     public static func containsEmoji(string: String) -> Bool {
-        for scalar in string.unicodeScalars {
-            if scalar.isEmoji() {
-                return true
-            }
-        }
-        return false
+        return string.composedCharacterSequences().contains { String.isEmoji($0) }
     }
 
     public func containsEmojiOnly(allowWhitespace: Bool = true) -> Bool {
@@ -72,29 +75,23 @@ extension String {
     }
     
     public static func containsEmojiOnly(string: String, allowWhitespace: Bool = true) -> Bool {
-        var inputString = string
+        var string = string
         if allowWhitespace {
-            inputString = string.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).joinWithSeparator("")
+            string = string.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()).joinWithSeparator("")
         }
-        for scalar in inputString.unicodeScalars {
-            if !scalar.isEmoji() {
-                return false
-            }
+        return !string.composedCharacterSequences().contains { !String.isEmoji($0) }
+    }
+
+    public static func isEmoji(string: String) -> Bool {
+        let chars = string.characters
+        if chars.count == 2 {
+            return EmojiTools.emojiCharacters.contains(String(chars.first!)) &&
+                EmojiTools.emojiModifierCharacters.contains(String(chars.last!))
+        } else {
+            return EmojiTools.emojiCharacters.contains(string)
         }
-        return true
-    }
-    
-}
-
-extension UnicodeScalar {
-
-    public func isEmoji() -> Bool {
-        return UnicodeScalar.isEmoji(self)
     }
 
-    public static func isEmoji(scalar: UnicodeScalar) -> Bool {
-        return emojis.unicodeScalars.contains(scalar)
-    }
 }
 
 public struct EmojiCodeSuggestion {
@@ -103,6 +100,9 @@ public struct EmojiCodeSuggestion {
 }
 
 public struct EmojiTools {
+
+    public static let emojiCharacters = Set<String>(emojis.composedCharacterSequences())
+    public static let emojiModifierCharacters = Set<String>(emojiModifiers.composedCharacterSequences())
 
     public static func emojiCodeSuggestionsForSearchTerm(searchTerm: String) -> [EmojiCodeSuggestion] {
         let keys = Array(emojiShortCodes.keys)
